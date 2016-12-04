@@ -1,6 +1,6 @@
 #!usr/local/python3
 
-import ceil
+import math
 
 class ListNode:
     def __init__(self, data = None, next = None):
@@ -163,16 +163,17 @@ def append(head1, head2):
 
 def split_half(head):
     l = length(head)
-    if l == 0 or head.val is None:
+    if l == 0 or head.data is None:
         raise ValueError('Invalid input list')
-    i = 0
     if l % 2 == 0:
         half = int(l / 2) # even i.e. 4 -> 2
     else:
         half = math.ceil(l / 2) # odd i.e 3 -> 2
     curr = head
-    while i < half:
+    i = 0
+    while i < half - 1:
         curr = curr.next
+        i += 1
     second = curr.next
     curr.next = None
     first = head
@@ -318,6 +319,25 @@ def main():
     print_list(head2)
     head = append(head, head2)
     print_list(head)
+
+    ''' test split half'''
+    print('---------------------')
+    head = build_one_two_three()
+    first, second = split_half(head)
+    print_list(first)
+    print_list(second)
+    try:
+        empty = ListNode() # empty list
+        first, second = split_half(empty)
+        print_list(first)
+        print_list(second)
+    except ValueError as e:
+        print('ValueError: ', e)
+    single = ListNode(10) # single-item list
+    first, second = split_half(single)
+    print_list(first)
+    print_list(second)
+
 
 if __name__ == '__main__': main()
 
