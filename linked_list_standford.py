@@ -67,6 +67,22 @@ def add_right(head, node):
         curr = curr.next
     return head
 
+def move(first, second):
+    if not first or not second:
+        raise ValueError('Invaid input lists')
+    node = second
+    new_second = second.next
+    node.next = None
+    first = push(first, node)
+    return first, new_second
+
+def append(head1, head2):
+    if not head1 or not head2:
+        raise TypeError('None type input')
+    t = tail(head1)
+    t.next = head2
+    return head1
+
 def tail(head):
     if not head:
         raise TypeError('None type')
@@ -154,12 +170,7 @@ def is_sorted(head):
         second = curr.next
     return True
 
-def append(head1, head2):
-    if not head1 or not head2:
-        raise TypeError('None type input')
-    t = tail(head1)
-    t.next = head2
-    return head1
+
 
 def split_half(head):
     l = length(head)
@@ -337,6 +348,29 @@ def main():
     first, second = split_half(single)
     print_list(first)
     print_list(second)
+
+    ''' test split half'''
+    print('---------------------')
+    head = build_one_two_three()
+    print_list(head)
+    second = ListNode(5)
+    second = push(second, ListNode(4))
+    print_list(second)
+    print('After move:')
+    first, second = move(head, second)
+    print_list(first)
+    print_list(second)
+    print('After move:')
+    first, second = move(first, second)
+    print_list(first)
+    print_list(second)
+    try:
+        print('After move:')
+        first, second = move(first, second)
+        print_list(first)
+        print_list(second)
+    except ValueError as e:
+        print('ValueError:', e)
 
 
 if __name__ == '__main__': main()
