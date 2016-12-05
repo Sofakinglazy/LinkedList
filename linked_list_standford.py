@@ -480,7 +480,7 @@ def main():
     head = build_list(3, 4, 5, 6)
     print_list(head)
 
-    ''' test sorted_merge'''
+    ''' test reverse'''
     print('---------------------')
     head = build_list(1, 2, 3)
     print('After being reversed:')
@@ -495,6 +495,7 @@ def main():
     print_list(head2)
     print('After sorted merge:')
     result = sorted_merge(head1, head2)
+    result = reverse(result)
     print_list(result)
 
 if __name__ == '__main__': main()
