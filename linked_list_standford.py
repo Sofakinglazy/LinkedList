@@ -18,12 +18,7 @@ def length(head):
     return _length
 
 def build_one_two_three():
-    ln1 = ListNode(1)
-    ln2 = ListNode(2)
-    ln3 = ListNode(3)
-    ln1.next = ln2
-    ln2.next = ln3
-    return ln1
+    return build_list(1, 2, 3)
 
 def build_list(*args):
     num = len(args)
@@ -77,7 +72,6 @@ def add_right(head, node):
         curr = curr.next
     return head
 
-'''move the first item from second list to first list'''
 def move(first, second):
     if not second:
         raise ValueError('Invalid input lists')
@@ -159,7 +153,6 @@ def sorted_merge(head1, head2):
             dummy, head1 = move(dummy, head1)
             print_list(head1)
     return dummy.next
-
 
 def tail(head):
     if not head:
@@ -285,6 +278,20 @@ def print_list(head):
     print(']')
 
 def main():
+    test_print_list()
+    test_get()
+    test_delete()
+    test_pop()
+    test_insert()
+    test_is_sorted()
+    test_sorted_insert()
+    test_tail()
+    test_append()
+    test_split_half()
+    test_move()
+    test_alter_merge()
+
+def test_print_list():
     head = build_one_two_three()
     print_list(head)
     print(length(head))
@@ -293,11 +300,8 @@ def main():
     head = push(head, ListNode(2))
     print_list(head)
     print(length(head))
-
     head = add_right(head, 5)
     print_list(head)
-
-    ''' test empty list '''
     print('---------------------')
     ln_empty = ListNode()
     print_list(ln_empty)
@@ -307,6 +311,7 @@ def main():
     ln_empty = add_right(ln_empty, 2)
     print_list(ln_empty)
 
+def test_get():
     ''' test get at index'''
     print('---------------------')
     head = build_one_two_three()
@@ -316,6 +321,7 @@ def main():
     try: print(get(head, 3))
     except ValueError as e: print('ValueError:', e)
 
+def test_delete():
     '''test delete list'''
     print('---------------------')
     head = build_one_two_three()
@@ -323,6 +329,7 @@ def main():
     delete_list(head)
     print_list(head)
 
+def test_pop():
     '''test pop method'''
     print('---------------------')
     head = build_one_two_three()
@@ -339,6 +346,7 @@ def main():
         print_list(head)
     except ValueError as e: print('ValueError:', e)
 
+def test_insert():
     '''test insert method'''
     print('---------------------')
     head = build_one_two_three()
@@ -354,7 +362,8 @@ def main():
         print_list(head)
     except ValueError as e: print('ValueError:', e)
 
-    '''test sorted_insert method'''
+def test_is_sorted():
+    '''test is_sorted method'''
     print('---------------------')
     head = build_one_two_three()
     print(is_sorted(head), end = ':')
@@ -369,6 +378,7 @@ def main():
     print(is_sorted(head), end = ':')
     print_list(head)
 
+def test_sorted_insert():
     '''test sorted_insert method'''
     print('---------------------')
     head = build_one_two_three()
@@ -390,6 +400,7 @@ def main():
     head = sorted_insert(head, node)
     print_list(head)
 
+def test_tail():
     '''test tail method'''
     print('---------------------')
     head = build_one_two_three()
@@ -397,6 +408,7 @@ def main():
     t = tail(head)
     print_list(t)
 
+def test_append():
     '''test append method'''
     print('---------------------')
     head = build_one_two_three()
@@ -407,6 +419,7 @@ def main():
     head = append(head, head2)
     print_list(head)
 
+def test_split_half():
     ''' test split half'''
     print('---------------------')
     head = build_one_two_three()
@@ -425,6 +438,7 @@ def main():
     print_list(first)
     print_list(second)
 
+def test_move():
     ''' test move '''
     print('---------------------')
     head = build_one_two_three()
@@ -453,6 +467,7 @@ def main():
     print_list(first)
     print_list(second)
 
+def test_alter_merge():
     ''' test alter_merge'''
     print('---------------------')
     head = build_one_two_three() # [1,2,3]
@@ -473,6 +488,7 @@ def main():
     result = alter_merge(head, second)
     print_list(result)
 
+def test_build_list():
     ''' test build_list'''
     print('---------------------')
     head = build_list(1, 2, 3)
@@ -480,6 +496,7 @@ def main():
     head = build_list(3, 4, 5, 6)
     print_list(head)
 
+def test_reverse():
     ''' test reverse'''
     print('---------------------')
     head = build_list(1, 2, 3)
@@ -487,6 +504,7 @@ def main():
     result = reverse(head)
     print_list(result)
 
+def test_sorted_merge():
     ''' test sorted_merge'''
     print('---------------------')
     head1 = build_list(1, 3, 6)
