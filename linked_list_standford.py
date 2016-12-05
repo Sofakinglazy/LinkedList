@@ -25,6 +25,16 @@ def build_one_two_three():
     ln2.next = ln3
     return ln1
 
+def build_list(*args):
+    num = len(args)
+    reverse = args[::-1] # reverse the tuple
+    ln = ListNode()
+    i = 0
+    while i < num:
+        ln = push(ln, reverse[i])
+        i += 1
+    return ln
+
 def push(head, node):
     if not node:
         return head
@@ -67,8 +77,9 @@ def add_right(head, node):
         curr = curr.next
     return head
 
+'''move the first item from second list to first list'''
 def move(first, second):
-    if not first or not second:
+    if not second:
         raise ValueError('Invalid input lists')
     node = second
     new_second = second.next
@@ -82,6 +93,20 @@ def append(head1, head2):
     t = tail(head1)
     t.next = head2
     return head1
+
+def reverse(head):
+    if not head:
+        return head
+    node = ListNode()
+    node = _reverse(head, node)
+    return node
+
+def _reverse(head, node):
+    if head.next:
+        node = _reverse(head.next, node)
+    head.next = None # seperate the original connection
+    node = add_right(node, head)
+    return node
 
 def alter_merge(head1, head2):
     if not head1 or not head2:
@@ -107,6 +132,34 @@ def alter_merge(head1, head2):
         if not head1 and not head2:
             break
     return dummy.next
+
+def sorted_merge(head1, head2):
+    if not head1 or not head2:
+        raise ValueError('Invalid input lists')
+    if not is_sorted(head1) or not is_sorted(head2):
+        raise ValueError('One of lists not sorted')
+    dummy = ListNode()
+    while head1 or head2:
+        if not head1 and not head2:
+            break
+        if not head1:
+            print('list 1 is run out')
+            dummy, head2 = move(dummy, head2)
+            continue
+        if not head2:
+            print('list 2 is run out')
+            dummy, head1 = move(dummy, head1)
+            continue
+        if head1.data > head2.data:
+            print('Move {} from 2 to dummy'.format(head2))
+            dummy, head2 = move(dummy, head2)
+            print_list(head2)
+        else:
+            print('Move {} from 1 to dummy'.format(head1))
+            dummy, head1 = move(dummy, head1)
+            print_list(head1)
+    return dummy.next
+
 
 def tail(head):
     if not head:
@@ -394,6 +447,11 @@ def main():
         print_list(second)
     except ValueError as e:
         print('ValueError:', e)
+    first = ListNode() # []
+    second = build_one_two_three() # [1,2,3]
+    first, second = move(first, second)
+    print_list(first)
+    print_list(second)
 
     ''' test alter_merge'''
     print('---------------------')
@@ -415,6 +473,29 @@ def main():
     result = alter_merge(head, second)
     print_list(result)
 
+    ''' test build_list'''
+    print('---------------------')
+    head = build_list(1, 2, 3)
+    print_list(head)
+    head = build_list(3, 4, 5, 6)
+    print_list(head)
+
+    ''' test sorted_merge'''
+    print('---------------------')
+    head = build_list(1, 2, 3)
+    print('After being reversed:')
+    result = reverse(head)
+    print_list(result)
+
+    ''' test sorted_merge'''
+    print('---------------------')
+    head1 = build_list(1, 3, 6)
+    head2 = build_list(2, 4, 5)
+    print_list(head1)
+    print_list(head2)
+    print('After sorted merge:')
+    result = sorted_merge(head1, head2)
+    print_list(result)
 
 if __name__ == '__main__': main()
 
