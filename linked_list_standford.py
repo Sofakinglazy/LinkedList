@@ -69,7 +69,7 @@ def add_right(head, node):
 
 def move(first, second):
     if not first or not second:
-        raise ValueError('Invaid input lists')
+        raise ValueError('Invalid input lists')
     node = second
     new_second = second.next
     node.next = None
@@ -82,6 +82,31 @@ def append(head1, head2):
     t = tail(head1)
     t.next = head2
     return head1
+
+def alter_merge(head1, head2):
+    if not head1 or not head2:
+        raise ValueError('Invalid input lists')
+    dummy = ListNode()
+    curr = dummy
+    while True:
+        if head1:
+            curr.next = head1   # i.e. [1,2,3]
+            curr = curr.next
+            if head1.next:
+                head1 = head1.next
+            else:
+                head1 = None # set it to empty list
+        if head2:
+            curr.next = head2   # i.e. [4,5]
+            curr = curr.next
+            if head2.next:
+                head2 = head2.next
+            else:
+                head2 = None # set it to empty list
+        ''' both lists empty'''
+        if not head1 and not head2:
+            break
+    return dummy.next
 
 def tail(head):
     if not head:
@@ -169,8 +194,6 @@ def is_sorted(head):
         curr = second
         second = curr.next
     return True
-
-
 
 def split_half(head):
     l = length(head)
@@ -349,7 +372,7 @@ def main():
     print_list(first)
     print_list(second)
 
-    ''' test split half'''
+    ''' test move '''
     print('---------------------')
     head = build_one_two_three()
     print_list(head)
@@ -371,6 +394,26 @@ def main():
         print_list(second)
     except ValueError as e:
         print('ValueError:', e)
+
+    ''' test alter_merge'''
+    print('---------------------')
+    head = build_one_two_three() # [1,2,3]
+    print_list(head)
+    second = ListNode(5)
+    second = push(second, ListNode(4)) # [4,5]
+    print_list(second)
+    print('After altertively merge:')
+    result = alter_merge(head, second)
+    print_list(result)
+    head = build_one_two_three() # [1,2,3]
+    second = ListNode(5)
+    second = push(second, ListNode(4)) # [4,5]
+    second = add_right(second, ListNode(6)) # [4,5,6]
+    second = add_right(second, ListNode(7)) # [4,5,6,7]
+    print_list(second)
+    print('After altertively merge:')
+    result = alter_merge(head, second)
+    print_list(result)
 
 
 if __name__ == '__main__': main()
